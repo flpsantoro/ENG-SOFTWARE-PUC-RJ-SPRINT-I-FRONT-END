@@ -64,6 +64,9 @@ async function main() {
     const usuarioSec = document.getElementById("usuarioSec");
     usuarioSec.style.display = "none";
 
+    const ultimoValorSec = document.getElementById("ultimoValorSec");
+    usuarioSec.style.display = "none";
+
     // Ler Cadastro
     lerCadastro()
         .then((jsonDataCadastro) => {
@@ -71,6 +74,8 @@ async function main() {
             preencherCaixaSelecao(jsonDataCadastro);
             // Chamar função dadosUsuario após preencher a caixa de seleção
             dadosUsuario(jsonDataCadastro);
+            salvarSec.style.display = "block";
+            usuarioSec.style.display = "block";
             // Ler Dados
             lerDados()
                 .then((jsonDataDados) => {
@@ -93,11 +98,17 @@ async function main() {
                     graficoMetBas(jsonDataDados);
 
                     // Exibir os elementos
-                    loadingMessage.style.display = "none";
-                    tabelaSec.style.display = "block";
-                    graficoSec.style.display = "block";
-                    salvarSec.style.display = "block";
-                    usuarioSec.style.display = "block";
+                    loadingMessage.style.display = "none";                   
+                    
+                    //Os gráficos só serão exibidos com mais de 1 registo
+                    if (jsonDataDados.length > 1) {                       
+                        graficoSec.style.display = "block";                     
+                    }
+                    //A tabela só será exibida de houver dado
+                    if (jsonDataDados.length > 0) {                      
+                        tabelaSec.style.display = "block";
+                    }                    
+                    
                 })
                 .catch((error) => {
                     console.error('Ocorreu um erro:', error);
@@ -146,8 +157,10 @@ function salvarDados(event) {
         });
 }
 
+//APAGAR DADOS
+
 function apagarDado(id) {
-    fetch(API_URL_DADOS_POST_DELETE + '/' + id, {method: 'DELETE'})
+    fetch(API_URL_DADOS_POST_DELETE + '?id=' +  id, {method: 'DELETE'})
         .then(response => response.json())
         .then(data => {
             location.reload();
@@ -168,13 +181,17 @@ nomesSelect.addEventListener("change", () => {
     window.location.reload();
 });
 
-const usuarioSelecionado = localStorage.getItem("usuarioSelecionado");
+const usuarioSelecionado = obterDadosCadastroId();
 if (usuarioSelecionado !== null) {
     nomesSelect.value = usuarioSelecionado;
+} else{
+    nomesSelect.value = '';
 }
 
 
 //APRESENTAR DADOS
+
+//Preenche caixa de seleção
 
 function preencherCaixaSelecao(data) {
     const nomesSelect = document.getElementById("nomes"); // Elemento select no HTML
@@ -190,44 +207,30 @@ function preencherCaixaSelecao(data) {
     }
 }
 
-function gerarTabela(data) {
-    const tbody = document.querySelector('tbody');
-    const thead = document.querySelector('thead');
-    tbody.innerHTML = '';
-    thead.innerHTML = `   
-  <tr>
-  <th>Peso</th>
-  <th>IMC</th>
-  <th>Gordura</th>
-  <th>Músculo</th>
-  <th>Metabolismo Basal</th>
-  <th>Idade</th>
-  <th>Idade Corporal</th>
-  <th>Gordura Visceral</th>
-  <th>Data</th>
-  <th>Apagar</th>
-  </tr>
+//Dados do usuário
+function dadosUsuario(dados) {
+    let usuarioDado = dados.filter(dado => dado.id === parseInt(obterDadosCadastroId()))[0];
+    const ultimoValorDiv = document.querySelector('#dados-usuario');
+    ultimoValorDiv.innerHTML = `<h2>Dados do Usuário</h2>
+  <div class="row">
+  <div class="col-sm-6">
+    <ul>
+      <li>Nome: ${usuarioDado.nome + " " + usuarioDado.sobrenome}</li>
+      <li>Data de Nascimento: ${formatarData(usuarioDado.nascimento)}</li>
+      <li>Altura: ${usuarioDado.altura / 100}m</li>
+    </ul>
+  </div>
+  <div class="col-sm-6">
+    <ul>      
+      <li>e-mail: ${usuarioDado.email}</li>
+      <li>Número de medições: ${Object.keys(usuarioDado.dados_medidos).length}</li>
+    </ul>
+  </div>
+</div>
   `;
-    data.forEach(dado => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${dado.peso}</td>
-  <td>${dado.imc}</td>
-  <td>${dado.gordura}</td>
-  <td>${dado.musculo}</td>
-  <td>${dado.met_basal}</td>
-  <td>${dado.idade}</td>
-  <td>${dado.idade_corporal}</td>
-  <td>${dado.gordura_visceral}</td>
-  <td>${formatarDataHora(dado.data)}</td>
-  <td style="text-align: center;">
-    <a href="#" onclick="apagarDado(${dado.id})" style="color: red;">
-      <i class="material-icons" style="vertical-align: middle;">delete</i>
-    </a>
-  </td>`;
-        tbody.appendChild(tr);
-    });
 }
 
+//Valores atuais
 function valoresAtuais(data) {
     let ultimoDado = data[data.length - 1];
     const ultimoValorDiv = document.querySelector('#ultimo-valor');
@@ -253,28 +256,9 @@ function valoresAtuais(data) {
   `;
 }
 
-function dadosUsuario(dados) {
-    let usuarioDado = dados.filter(dado => dado.id === parseInt(obterDadosCadastroId()))[0];
-    const ultimoValorDiv = document.querySelector('#dados-usuario');
-    ultimoValorDiv.innerHTML = `<h2>Dados do Usuário</h2>
-  <div class="row">
-  <div class="col-sm-6">
-    <ul>
-      <li>Nome: ${usuarioDado.nome + " " + usuarioDado.sobrenome}</li>
-      <li>Data de Nascimento: ${formatarData(usuarioDado.nascimento)}</li>
-      <li>Altura: ${usuarioDado.altura / 100}m</li>
-    </ul>
-  </div>
-  <div class="col-sm-6">
-    <ul>      
-      <li>e-mail: ${usuarioDado.email}</li>
-      <li>Número de medições: ${Object.keys(usuarioDado.dados_medidos).length}</li>
-    </ul>
-  </div>
-</div>
-  `;
-}
+// Formulário no html
 
+//Gera os gráficos
 function graficoPeso(data) {
     const pesos = data.map(d => d.peso);
     const labels = data.map(d => formatarDataHora(d.data));
@@ -456,5 +440,44 @@ function graficoMetBas(data) {
                 }
             }
         }
+    });
+}
+
+//Gera a tabela
+function gerarTabela(data) {
+    const tbody = document.querySelector('tbody');
+    const thead = document.querySelector('thead');
+    tbody.innerHTML = '';
+    thead.innerHTML = `   
+  <tr>
+  <th>Peso</th>
+  <th>IMC</th>
+  <th>Gordura</th>
+  <th>Músculo</th>
+  <th>Metabolismo Basal</th>
+  <th>Idade</th>
+  <th>Idade Corporal</th>
+  <th>Gordura Visceral</th>
+  <th>Data</th>
+  <th>Apagar</th>
+  </tr>
+  `;
+    data.forEach(dado => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${dado.peso}</td>
+  <td>${dado.imc}</td>
+  <td>${dado.gordura}</td>
+  <td>${dado.musculo}</td>
+  <td>${dado.met_basal}</td>
+  <td>${dado.idade}</td>
+  <td>${dado.idade_corporal}</td>
+  <td>${dado.gordura_visceral}</td>
+  <td>${formatarDataHora(dado.data)}</td>
+  <td style="text-align: center;">
+    <a href="#" onclick="apagarDado(${dado.id})" style="color: red;">
+      <i class="material-icons" style="vertical-align: middle;">delete</i>
+    </a>
+  </td>`;
+        tbody.appendChild(tr);
     });
 }
