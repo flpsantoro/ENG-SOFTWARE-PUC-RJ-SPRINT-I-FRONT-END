@@ -1,6 +1,5 @@
 #! /bin/sh
 
-git pull origin
 
 mkdir /srv/site_sprint_i
 
@@ -14,7 +13,7 @@ docker build --tag=flpsantoro/site_sprint_i:1.0 --rm=true .
 docker run \
   --name site_sprint_i \
   --hostname=site_sprint_i \
-  --network puc \
+  --network=puc \
   -v /srv/site_sprint_i:/usr/share/nginx/html \
   -p 33001:80 \
   -d flpsantoro/site_sprint_i:1.0
