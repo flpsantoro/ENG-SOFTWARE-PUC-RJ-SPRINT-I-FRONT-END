@@ -1,5 +1,6 @@
 #! /bin/sh
 
+git pull origin
 
 mkdir /srv/site_sprint_i
 
