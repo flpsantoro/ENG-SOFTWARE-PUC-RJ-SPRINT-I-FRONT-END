@@ -136,7 +136,7 @@ function salvarDados(event) {
         met_basal: form.metBas.value,
         idade_corporal: form.idadeCorporal.value,
         gordura_visceral: form.gorduraVisceral.value,
-        data: "0000-00-00T00:00:00.000000"
+        data: "2023-05-03T18:27:01.594488"
     };
     console.log(JSON.stringify(dados));
 
