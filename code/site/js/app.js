@@ -6,9 +6,9 @@ function obterDadosCadastroId() {
     return dadosCadastroId;
 }
 
-const API_URL_CADASTRO = 'http://www.santoroalcantara.com/api/cadastro';
-const API_URL_DADOS = 'http://www.santoroalcantara.com/api/dados?order=asc&id=' + obterDadosCadastroId();
-const API_URL_DADOS_POST_DELETE = 'http://www.santoroalcantara.com/api/dados';
+const API_URL_CADASTRO = 'http://localhost:33002/cadastro';
+const API_URL_DADOS = 'http://localhost:33002/dados?order=asc&id=' + obterDadosCadastroId();
+const API_URL_DADOS_POST_DELETE = 'http://localhost:33002/dados';
 
 async function lerCadastro() {
     const response = await fetch(API_URL_CADASTRO);
@@ -135,8 +135,7 @@ function salvarDados(event) {
         musculo: form.musculo.value,
         met_basal: form.metBas.value,
         idade_corporal: form.idadeCorporal.value,
-        gordura_visceral: form.gorduraVisceral.value,
-        data: "2023-05-03T18:27:01.594488"
+        gordura_visceral: form.gorduraVisceral.value
     };
     console.log(JSON.stringify(dados));
 
