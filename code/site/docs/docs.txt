@@ -1,0 +1,48 @@
+Função "obterDadosCadastroId":
+Esta função obtém o valor do parâmetro "id" na URL da página em que está sendo executada.
+
+Constantes:
+As seguintes constantes representam as URLs das APIs utilizadas pela aplicação:
+
+API_URL_CADASTRO: URL para a API de cadastro.
+API_URL_DADOS: URL para a API de dados, contendo o valor do parâmetro "id" obtido pela função "obterDadosCadastroId".
+API_URL_DADOS_POST_DELETE: URL para a API de dados para realizar operações de POST (inserir dados) e DELETE (remover dados).
+Função "lerCadastro":
+Esta função faz uma requisição à API de cadastro e retorna os dados cadastrais do usuário em formato JSON.
+
+Função "lerDados":
+Esta função faz uma requisição à API de dados e retorna os dados em formato JSON.
+
+Função "formatarDataHora":
+Esta função formata uma data e hora no formato "dd/mm/aaaa - hh:mm".
+
+Função "formatarData":
+Esta função formata uma data no formato "dd/mm/aaaa".
+
+Função "adicionarZero":
+Esta função recebe um valor e retorna uma string com esse valor preenchido com um zero à esquerda, caso seja menor do que 10.
+
+Função "main":
+Esta é a função principal da página, que realiza as seguintes tarefas:
+
+Mostra uma mensagem de carregamento.
+Lê os dados cadastrais do usuário.
+Preenche a caixa de seleção com os usuários cadastrados.
+Chama a função "dadosUsuario" após preencher a caixa de seleção.
+Lê os dados de acordo com o valor selecionado na caixa de seleção.
+Gera uma tabela com os dados lidos.
+Gera gráficos com os dados lidos.
+Função "salvarDados":
+Esta função é acionada quando o formulário de inserção de dados é submetido. Ela obtém os valores dos campos do formulário e realiza uma requisição POST para a API de dados, inserindo os dados enviados.
+
+Função "apagarDado":
+Esta função é acionada quando um botão de remoção de um dado é clicado. Ela realiza uma requisição DELETE para a API de dados, removendo o dado do ID correspondente.
+
+Listeners:
+Os seguintes listeners são adicionados:
+
+Um listener para o evento "submit" do formulário de inserção de dados, que chama a função "salvarDados".
+Um listener para o evento "change" da caixa de seleção de usuários, que salva o ID do usuário selecionado no armazenamento local e recarrega a página.
+Um bloco de código que verifica se um usuário foi selecionado anteriormente e, caso positivo, preenche a caixa de seleção com esse usuário.
+Função "preencherCaixaSelecao":
+Esta função preenche a caixa de seleção de usuários com os dados obtidos pela API de cadastro.

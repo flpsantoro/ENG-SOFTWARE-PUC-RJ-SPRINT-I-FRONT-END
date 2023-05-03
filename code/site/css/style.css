@@ -1,0 +1,110 @@
+/* Paleta de cores para a página de saúde */
+
+:root {
+    --cor-primaria: #448aff; /* azul */
+    --cor-secundaria: #6ab7ff; /* azul mais claro */
+    --cor-terciaria: #e0f2f1; /* verde-água */
+    --cor-th: #66cec9; /* verde-água */
+    --cor-th-borda: #696969FF;
+    --cor-texto-primaria: #333; /* preto */
+    --cor-texto-secundaria: #555; /* cinza escuro */
+    --cor-texto-terciaria: #bbb; /* cinza claro */
+    --cor-fundo: #fff; /* branco */
+
+
+}
+
+/* Estilos para o header da página */
+header {
+    background-color: var(--cor-primaria);
+}
+
+/* Estilos para a navbar */
+.navbar {
+    background-color: var(--cor-primaria);
+}
+
+/* Estilos para os títulos */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--cor-texto-primaria);
+}
+
+/* Estilos para os textos */
+p, a {
+    color: var(--cor-texto-secundaria);
+}
+
+/* Estilos para o fundo da página */
+body {
+    background-color: var(--cor-fundo);
+}
+
+/* Estilos para os botões */
+button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-fundo);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+/* Estilos para as tabelas */
+table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--cor-texto-terciaria);
+    vertical-align: middle;
+}
+
+th {
+    background-color: var(--cor-th);
+    border: 1px solid var(--cor-th-borda);
+    text-shadow: 1px 1px white;
+    vertical-align: middle;
+}
+
+tr:nth-child(even) {
+    background-color: var(--cor-terciaria);
+    vertical-align: middle;
+}
+
+/* Estilos para os formulários */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"] {
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+select {
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Estilos para as seções */
+section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 2px solid #cbcbcb;
+    padding: 20px;
+}

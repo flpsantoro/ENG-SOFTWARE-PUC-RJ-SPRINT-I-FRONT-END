@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Controle Corporal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" href="img/favicon-32x32.png">
+    <script>
+        $(document).ready(function () {
+            $('.mask-decimal').mask('000000000.00', {reverse: true});
+        });
+    </script>
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Controle Corporal</a>
+    </nav>
+</header>
+<div class="container-fluid">
+    <section>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Selecione o Usuário</h2>
+                <select id="nomes"></select>
+            </div>
+        </div>
+    </section>
+    <section id="usuarioSec">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="dados-usuario">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div id="ultimo-valor">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="salvarSec">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <form method="post">
+                        <h2>Salvar Dados</h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="peso">Peso:</label>
+                                <input type="text" class="form-control mask-decimal" id="peso" name="peso" required>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="gordura">Gordura:</label>
+                                    <input type="number" class="form-control" id="gordura" name="gordura">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="musculo">Músculo:</label>
+                                    <input type="number" class="form-control" id="musculo" name="musculo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="metBas">Metabolismo Basal:</label>
+                                    <input type="number" class="form-control" id="metBas" name="metBas">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="idadeCorporal">Idade Corporal:</label>
+                                    <input type="number" class="form-control" id="idadeCorporal" name="idadeCorporal">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="gorduraVisceral">Gordura Visceral:</label>
+                                    <input type="number" class="form-control" id="gorduraVisceral"
+                                           name="gorduraVisceral">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="graficoSec">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Gráficos</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="pesoChart"></canvas>
+            </div>
+            <div class="col-lg-6">
+                <canvas id="muscGord"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="imcChart"></canvas>
+            </div>
+            <div class="col-lg-6">
+                <canvas id="metBasChart"></canvas>
+            </div>
+        </div>
+    </section>
+    <section id="tabelaSec">
+        <div class="row">
+            <div class="col-12">
+                <caption>
+                    <h2>Tabela de dados</h2>
+                </caption>
+                <table class="table" id="tabela-dados">
+                    <div id="loading-message">Carregando informações...</div>
+                    <thead>
+                    <!-- cabeçalho da tabela -->
+                    </thead>
+                    <tbody>
+                    <!-- linhas da tabela -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <script src="js/app.js"></script>
+</div>
+</body>
+</html>
