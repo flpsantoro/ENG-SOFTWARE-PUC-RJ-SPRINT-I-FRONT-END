@@ -6,9 +6,9 @@ function obterDadosCadastroId() {
     return dadosCadastroId;
 }
 
-const API_URL_CADASTRO = 'http://localhost:33002/cadastro';
-const API_URL_DADOS = 'http://localhost:33002/dados?order=asc&id=' + obterDadosCadastroId();
-const API_URL_DADOS_POST_DELETE = 'http://localhost:33002/dados';
+const API_URL_CADASTRO = 'http://api_sprint_i:5000/cadastro';
+const API_URL_DADOS = 'http://api_sprint_i:5000/dados?order=asc&id=' + obterDadosCadastroId();
+const API_URL_DADOS_POST_DELETE = 'http://api_sprint_i:5000/dados';
 
 async function lerCadastro() {
     const response = await fetch(API_URL_CADASTRO);
